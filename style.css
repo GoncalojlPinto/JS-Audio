@@ -20,6 +20,13 @@
     background: rgb(54, 54, 54);
 }
 
+#file-container {
+    position: relative;
+    left: 0;
+    margin-left: 100px;
+    top: 15rem;    
+
+}
 #container h3{
     text-align: center;
     margin-top: 0;
@@ -56,4 +63,12 @@
 
 a {
     text-decoration: none;
+}
+
+#audiofile{
+    margin: 3rem auto;
+    display: block;
+    color: var(--text-color);
+    position: absolute;
+    z-index: 100;
 }
