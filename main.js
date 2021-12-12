@@ -32,7 +32,7 @@ container.addEventListener('click', function(){
         x = 0;
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         analyser.getByteFrequencyData(dataArray);
-        visualAnimation(bufferLength, x, barWidth, barHeight, dataArray)
+        barAnimation(bufferLength, x, barWidth, barHeight, dataArray)
         requestAnimationFrame(animate);
 
     }
@@ -63,23 +63,37 @@ file.addEventListener('change', function(){
         x = 0;
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         analyser.getByteFrequencyData(dataArray);
-        visualAnimation(bufferLength, x, barWidth, barHeight, dataArray);
+        barAnimation(bufferLength, x, barWidth, barHeight, dataArray);
         requestAnimationFrame(animate);
 
     }
     animate();
 });
 
-function visualAnimation(bufferLength, x, barWidth, barHeight, dataArray){
+function barAnimation(bufferLength, x, barWidth, barHeight, dataArray){
     for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i] * 2.2;
-        const red = i* barHeight / 20;
-        const green = i * 2;
-        const blue = barHeight/2;
-
-        canvasCtx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')';
-        canvasCtx.fillRect(canvas.width - x, canvas.height - barHeight, barWidth, barHeight);
+        const hue = i * 3;
+        console.log(i);
+        canvasCtx.fillStyle = 'hsl(' + hue + ',100%, 50%)';
         canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
         x += barWidth;
+}
+}
+
+    // Best Visualization with small screens
+function circleAnimation(bufferLength, x, barWidth, barHeight, dataArray){
+    for (let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 1.2;
+        canvasCtx.save();
+        canvasCtx.translate(canvas.width/2, canvas.height/1.5);
+        canvasCtx.rotate(i * Math.PI * 2 / bufferLength);
+
+        const hue = i * 3;
+        console.log(i);
+        canvasCtx.fillStyle = 'hsl(' + hue + ',100%, 50%)';
+        canvasCtx.fillRect(0, 0, barWidth, barHeight);
+        x += barWidth;
+        canvasCtx.restore();
 }
 }
